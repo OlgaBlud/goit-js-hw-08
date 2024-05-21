@@ -93,7 +93,7 @@ const galleryItemsContent = images
 gallery.insertAdjacentHTML('afterbegin', galleryItemsContent);
 const imageLinks = document.querySelectorAll('.gallery-link');
 // console.log(imageLinks);
-const galleryItem = document.querySelectorAll('.gallery-item');
+const galleryItems = document.querySelectorAll('.gallery-item');
 // console.log(galleryItem);
 imageLinks.forEach(link => {
   link.addEventListener('click', event => {
@@ -103,6 +103,14 @@ imageLinks.forEach(link => {
     console.log(event.currentTarget.nodeName); //A
   });
 });
+gallery.addEventListener('click', handelClickGallery);
+function handelClickGallery(event) {
+  if (event.target.nodeName === 'IMG') {
+    // const imageLinkUrl = event.target.closest('.gallery-link').href;
+    const imageLinkUrl = event.target.parentNode.href;
+    console.log(imageLinkUrl);
+  } else return;
+}
 
 // ================= Не вдається зупинити завантаження якщо лістнер на загальному ел-ті ul
 // gallery.addEventListener('click', handelClickGallery);
