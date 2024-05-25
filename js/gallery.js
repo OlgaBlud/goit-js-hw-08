@@ -98,17 +98,24 @@ const galleryItems = document.querySelectorAll('.gallery-item');
 imageLinks.forEach(link => {
   link.addEventListener('click', event => {
     event.preventDefault();
-    console.log(event.target);
-    console.log(event.currentTarget); //
-    console.log(event.currentTarget.nodeName); //A
+    // console.log(event.target); //img
+    // console.log(event.currentTarget); // a
+    // console.log(event.currentTarget.nodeName); //A
   });
 });
 gallery.addEventListener('click', handelClickGallery);
 function handelClickGallery(event) {
   if (event.target.nodeName === 'IMG') {
-    // const imageLinkUrl = event.target.closest('.gallery-link').href;
-    const imageLinkUrl = event.target.parentNode.href;
-    console.log(imageLinkUrl);
+    // const imageLink = event.target.closest('.gallery-link').href;
+    const imageLink = event.target.parentNode.href;
+    const imageDescription = event.target.alt;
+    // console.log(imageLinkUrl); // url
+    // console.log(imageDescription); // alt
+    basicLightbox
+      .create(
+        `<img src="${imageLink}" alt=${imageDescription} width="1400" height="900" >`
+      )
+      .show();
   } else return;
 }
 
