@@ -122,7 +122,7 @@ function handelClickGallery(event) {
 // ================= Не вдається зупинити завантаження якщо лістнер на загальному ел-ті ul
 // gallery.addEventListener('click', handelClickGallery);
 // function handelClickGallery(event) {
-//   // if (event.currentTarget.nodeName === 'A') {
+//   // if (event.target.nodeName === 'A') {
 //   //   event.preventDefault();
 //   console.log('gallery click');
 //   console.log(event.target); // ul або img (depends on click)
