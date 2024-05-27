@@ -64,74 +64,38 @@ const images = [
   },
 ];
 
-/* 
-preview — посилання на маленьку версію зображення
-original — посилання на велику версію зображення 
-description — текстовий опис, для  alt  
-
-
-
-*/
-
 const gallery = document.querySelector('.gallery');
 
-const galleryItemsContent = images
+const galleryListContent = images
   .map(
-    image => `<li class="gallery-item">
-  <a class="gallery-link" href="${image.original}">
+    ({ original, preview, description }) => `<li class="gallery-item">
+  <a class="gallery-link" href="${original}">
     <img
       class="gallery-image"
-      src="${image.preview}"
-      data-source="large-image.jpg"
-      alt="${image.description}"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
     />
   </a>
 </li>`
   )
   .join('');
-// gallery.innerHTML = galleryItemsContent;
-gallery.insertAdjacentHTML('afterbegin', galleryItemsContent);
-const imageLinks = document.querySelectorAll('.gallery-link');
-// console.log(imageLinks);
-const galleryItems = document.querySelectorAll('.gallery-item');
-// console.log(galleryItem);
-imageLinks.forEach(link => {
-  link.addEventListener('click', event => {
-    event.preventDefault();
-    // console.log(event.target); //img
-    // console.log(event.currentTarget); // a
-    // console.log(event.currentTarget.nodeName); //A
-  });
-});
+
+gallery.insertAdjacentHTML('afterbegin', galleryListContent);
+
 gallery.addEventListener('click', handelClickGallery);
+
 function handelClickGallery(event) {
-  if (event.target.nodeName === 'IMG') {
-    // const imageLink = event.target.closest('.gallery-link').href;
-    const imageLink = event.target.parentNode.href;
-    const imageDescription = event.target.alt;
-    // console.log(imageLinkUrl); // url
-    // console.log(imageDescription); // alt
-    basicLightbox
-      .create(
-        `<img src="${imageLink}" alt=${imageDescription} width="1400" height="900" >`
-      )
-      .show();
-  } else return;
+  event.preventDefault();
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+  const imageLink = event.target.dataset.source;
+  const imageDescription = event.target.alt;
+
+  basicLightbox
+    .create(
+      `<img src="${imageLink}" alt=${imageDescription} width="1400" height="900" >`
+    )
+    .show();
 }
-
-// ================= Не вдається зупинити завантаження якщо лістнер на загальному ел-ті ul
-// gallery.addEventListener('click', handelClickGallery);
-// function handelClickGallery(event) {
-//   // if (event.target.nodeName === 'A') {
-//   //   event.preventDefault();
-//   console.log('gallery click');
-//   console.log(event.target); // ul або img (depends on click)
-//   console.log(event.currentTarget); // ul (parent)
-//   console.log(event.currentTarget.nodeName); // UL
-// }
-
-// function stopDownloadOnclick() {
-
-// }
-
-// =================
